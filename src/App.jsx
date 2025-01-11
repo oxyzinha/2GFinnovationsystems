@@ -16,31 +16,31 @@ import emailjs from 'emailjs-com';
 import { motion } from 'framer-motion';
 
 function App() {
-  // Estado para controlar a mensagem de sucesso
+  // State to control success message
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Coleta os dados do formulário
+    // Collect form data
     const form = e.target;
     const formData = new FormData(form);
 
-    // Envia o formulário usando EmailJS
+    // Send form using EmailJS
     emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData, 'YOUR_USER_ID')
       .then((result) => {
-        console.log('Mensagem enviada com sucesso:', result.text);
-        setFormSubmitted(true);  // Atualiza o estado para mostrar a mensagem de sucesso
-        form.reset();  // Limpa o formulário após o envio
+        console.log('Message sent successfully:', result.text);
+        setFormSubmitted(true); // Update state to show success message
+        form.reset(); // Clear form after submission
       })
       .catch((error) => {
-        console.log('Erro ao enviar a mensagem:', error.text);
-        alert('Algo deu errado ao enviar sua mensagem. Tente novamente!');
+        console.log('Error sending message:', error.text);
+        alert('Something went wrong while sending your message. Please try again!');
       });
   };
 
   return (
-    <div className="bg-gray-50 text-gray-900">
+    <div className="bg-white text-gray-900">
 
       {/* Header */}
       <motion.header
@@ -65,9 +65,9 @@ function App() {
             transition={{ duration: 1, delay: 1 }}
           >
             <a href="#home" className="text-lg hover:text-blue-600">Home</a>
-            <a href="#about" className="text-lg hover:text-blue-600">Sobre</a>
-            <a href="#services" className="text-lg hover:text-blue-600">Serviços</a>
-            <a href="#contact" className="text-lg hover:text-blue-600">Contato</a>
+            <a href="#about" className="text-lg hover:text-blue-600">About</a>
+            <a href="#services" className="text-lg hover:text-blue-600">Services</a>
+            <a href="#contact" className="text-lg hover:text-blue-600">Contact</a>
           </motion.nav>
         </div>
       </motion.header>
@@ -75,14 +75,14 @@ function App() {
       {/* Hero Section */}
       <motion.section
         id="home"
-        className="h-screen flex flex-col justify-center items-center bg-gradient-to-r from-blue-500 to-blue-700 text-white text-center px-6 relative"
+        className="h-screen flex flex-col justify-center items-center bg-gradient-to-r from-blue-500 to-purple-700 text-white text-center px-6 relative"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
         <img
-          src="https://via.placeholder.com/1200x600/0000FF/808080?text=Desporto+Inovador" 
-          alt="Desporto"
+          src="https://static.vecteezy.com/system/resources/previews/000/523/309/original/web-development-and-programming-coding-concept-seo-optimization-modern-web-design-on-laptop-screen-vector.jpg"
+          alt="Web Development"
           className="absolute top-0 left-0 w-full h-full object-cover opacity-50"
         />
         <motion.h1
@@ -91,7 +91,7 @@ function App() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          Inovação que Transforma Seu Negócio
+          Innovation That Transforms Your Business
         </motion.h1>
         <motion.p
           className="text-xl max-w-2xl mx-auto mb-8 z-10"
@@ -99,7 +99,7 @@ function App() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          Oferecemos soluções tecnológicas e inovadoras que transformam desafios em oportunidades para sua empresa crescer.
+          We provide technological and innovative solutions that turn challenges into opportunities for your company to grow.
         </motion.p>
         <motion.button
           className="bg-white text-blue-600 px-6 py-3 rounded-full text-xl font-semibold hover:bg-gray-100 transition z-10"
@@ -107,7 +107,7 @@ function App() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
         >
-          Saiba Mais
+          Learn More
         </motion.button>
       </motion.section>
 
@@ -126,7 +126,7 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
           >
-            Quem Somos
+            Who We Are
           </motion.h2>
           <motion.p
             className="text-lg mb-6"
@@ -134,11 +134,11 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
           >
-            A 2GF Innovation Systems é uma empresa focada em fornecer soluções tecnológicas e inovadoras para empresas que buscam crescimento e eficiência no mundo digital. Com uma abordagem personalizada e dedicada, buscamos transformar desafios em soluções práticas e de alto impacto.
+            2GF Innovation Systems is a company focused on providing technological and innovative solutions for businesses seeking growth and efficiency in the digital world. With a personalized and dedicated approach, we aim to turn challenges into practical and high-impact solutions.
           </motion.p>
           <motion.img
-            src="https://via.placeholder.com/800x400/00FF00/000000?text=Inova%C3%A7%C3%A3o+Tecnol%C3%B3gica"
-            alt="Inovação Tecnológica"
+            src="https://uhalpern.github.io/img/design/design-pattern-big1.png"
+            alt="Technological Innovation"
             className="mx-auto rounded-xl shadow-lg mt-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -162,13 +162,13 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
           >
-            Nossos Serviços
+            Our Services
           </motion.h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[ 
-              { title: 'Consultoria Estratégica', description: 'Oferecemos consultoria especializada para otimizar processos e alinhar tecnologia aos objetivos de negócio.', image: 'https://via.placeholder.com/400x300/008CFF/FFFFFF?text=Consultoria' },
-              { title: 'Desenvolvimento de Software', description: 'Desenvolvemos soluções customizadas e inovadoras que atendem às necessidades específicas de cada cliente.', image: 'https://via.placeholder.com/400x300/FF5733/FFFFFF?text=Desenvolvimento' },
-              { title: 'Transformação Digital', description: 'Ajudamos sua empresa a integrar as mais recentes tecnologias, aumentando a eficiência e a competitividade.', image: 'https://via.placeholder.com/400x300/FFB6C1/FFFFFF?text=Transforma%C3%A7%C3%A3o' },
+              { title: 'Strategic Consulting', description: 'We offer specialized consulting to optimize processes and align technology with business goals.', image: 'https://heflocom.s3.amazonaws.com/wp-content/uploads/sites/2/2017/03/what-is-strategy-consulting.jpg' },
+              { title: 'Software Development', description: 'We develop customized and innovative solutions tailored to meet the specific needs of each client.', image: 'https://image.freepik.com/vetores-gratis/desenvolvimento-de-software-linguagem-de-programacao-codificacao_284092-33.jpg' },
+              { title: 'Digital Transformation', description: 'We help your business integrate the latest technologies, increasing efficiency and competitiveness.', image: 'https://images.nightcafe.studio/jobs/knoJqFvrzxueAQoinKG8/knoJqFvrzxueAQoinKG8--1--xgjl7.jpg?tr=w-1600,c-at_max' },
             ].map((service, index) => (
               <motion.div
                 key={index}
@@ -200,7 +200,7 @@ function App() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          Fale Conosco
+          Contact Us
         </motion.h2>
         <motion.p
           className="text-xl mb-8"
@@ -208,10 +208,10 @@ function App() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          Entre em contato para saber como podemos ajudar a transformar seu negócio com soluções inovadoras.
+          Reach out to us to learn how we can help transform your business with innovative solutions.
         </motion.p>
 
-        {/* Formulário de Contato */}
+        {/* Contact Form */}
         <motion.form
           className="space-y-6 max-w-lg mx-auto"
           initial={{ opacity: 0 }}
@@ -220,51 +220,52 @@ function App() {
           onSubmit={handleSubmit}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="name" className="block text-lg font-medium text-gray-700">Nome</label>
+            <div className="bg-white p-4 rounded-md shadow-md">
+              <label htmlFor="name" className="block text-lg font-medium text-gray-700">Name</label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-                placeholder="Seu nome"
+                placeholder="Your name"
               />
             </div>
-            <div>
+            <div className="bg-white p-4 rounded-md shadow-md">
               <label htmlFor="email" className="block text-lg font-medium text-gray-700">Email</label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-                placeholder="Seu email"
+                placeholder="Your email"
               />
             </div>
           </div>
 
-          <div>
-            <label htmlFor="message" className="block text-lg font-medium text-gray-700">Mensagem</label>
+          <div className="bg-white p-4 rounded-md shadow-md">
+            <label htmlFor="message" className="block text-lg font-medium text-gray-700">Message</label>
             <textarea
               id="message"
               name="message"
               rows="6"
               className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-              placeholder="Escreva sua mensagem"
+              placeholder="Your message"
+              style={{ backgroundColor: '#ffffff' }}
             />
           </div>
 
           <motion.button
             type="submit"
-            className="w-full bg-white text-blue-600 px-6 py-3 rounded-full text-xl font-semibold hover:bg-gray-100 transition"
+            className="w-full bg-blue-600 text-white px-6 py-3 rounded-full text-xl font-semibold hover:bg-blue-700 transition"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.5 }}
           >
-            Enviar Mensagem
+            Send Message
           </motion.button>
         </motion.form>
 
-        {/* Mensagem de sucesso */}
+        {/* Success Message */}
         {formSubmitted && (
           <motion.div
             className="mt-6 p-4 bg-green-500 text-white rounded-md"
@@ -272,7 +273,7 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <p>Mensagem enviada com sucesso!</p>
+            <p>Message sent successfully!</p>
           </motion.div>
         )}
       </motion.section>
