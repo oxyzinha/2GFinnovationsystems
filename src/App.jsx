@@ -1,34 +1,17 @@
 import { useState } from 'react';
-import emailjs from 'emailjs-com';
 import { motion } from 'framer-motion';
 
 function App() {
-  // State to control success message
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  // State to control mobile menu toggle
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Collect form data
-    const form = e.target;
-    const formData = new FormData(form);
-
-    // Send form using EmailJS
-    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData, 'YOUR_USER_ID')
-      .then((result) => {
-        console.log('Message sent successfully:', result.text);
-        setFormSubmitted(true); // Update state to show success message
-        form.reset(); // Clear form after submission
-      })
-      .catch((error) => {
-        console.log('Error sending message:', error.text);
-        alert('Something went wrong while sending your message. Please try again!');
-      });
+    // A lógica do backend será implementada pela sua colega
   };
 
   return (
     <div className="bg-white text-gray-900">
-
       {/* Header */}
       <motion.header
         className="fixed top-0 w-full bg-white shadow-md z-50"
@@ -45,16 +28,29 @@ function App() {
           >
             2GF Innovation Systems
           </motion.h1>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="block lg:hidden text-blue-600"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? 'X' : '☰'}
+          </button>
+
+          {/* Navigation Menu */}
           <motion.nav
-            className="space-x-6"
+            className={`space-x-6 lg:flex ${menuOpen ? 'block' : 'hidden'} lg:block`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
           >
-            <a href="#home" className="text-lg hover:text-blue-600">Home</a>
-            <a href="#about" className="text-lg hover:text-blue-600">About</a>
-            <a href="#services" className="text-lg hover:text-blue-600">Services</a>
-            <a href="#contact" className="text-lg hover:text-blue-600">Contact</a>
+            <div className="flex flex-col lg:flex-row lg:space-x-6 space-y-4 lg:space-y-0 px-4 lg:px-0">
+              <a href="#home" className="text-lg hover:text-blue-600" onClick={() => setMenuOpen(false)}>Home</a>
+              <a href="#about" className="text-lg hover:text-blue-600" onClick={() => setMenuOpen(false)}>About</a>
+              <a href="#services" className="text-lg hover:text-blue-600" onClick={() => setMenuOpen(false)}>Services</a>
+              <a href="#contact" className="text-lg hover:text-blue-600" onClick={() => setMenuOpen(false)}>Contact</a>
+              <a href="#partners" className="text-lg hover:text-blue-600" onClick={() => setMenuOpen(false)}>Partners</a>
+            </div>
           </motion.nav>
         </div>
       </motion.header>
@@ -173,98 +169,189 @@ function App() {
         </div>
       </motion.section>
 
-      {/* Contact Section */}
+      {/* Our Partners Section */}
       <motion.section
-        id="contact"
-        className="py-16 bg-blue-500 text-white text-center"
+        id="partners"
+        className="py-16 bg-white text-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
       >
         <motion.h2
-          className="text-4xl font-semibold mb-6"
+          className="text-4xl font-semibold mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          Contact Us
+          Our Partners
         </motion.h2>
-        <motion.p
-          className="text-xl mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
-          Reach out to us to learn how we can help transform your business with innovative solutions.
-        </motion.p>
-
-        {/* Contact Form */}
-        <motion.form
-          className="space-y-6 max-w-lg mx-auto"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          onSubmit={handleSubmit}
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="bg-white p-4 rounded-md shadow-md">
-              <label htmlFor="name" className="block text-lg font-medium text-gray-700">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-                placeholder="Your name"
+        {/* Primeira linha - 3 partners */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+          {[ 
+            { 
+              alt: 'Instruction Formation', 
+              src: 'https://sportymentor.eu/wp-content/uploads/2023/02/logo-instruction-formation_png.png' 
+            },
+            { 
+              alt: 'Vis Juventum Romania', 
+              src: 'https://sportymentor.eu/wp-content/uploads/2023/02/Logo_Vis_Juventum-Romania.png' 
+            },
+            { 
+              alt: 'Pour la Solidarité Belgium', 
+              src: 'https://sportymentor.eu/wp-content/uploads/2023/02/LOGO_pour-la-solidarite-belgium.png' 
+            }
+          ].map((partner, index) => (
+            <motion.div
+              key={index}
+              className="p-4 bg-white rounded-md shadow-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.5 }}
+            >
+              <img
+                src={partner.src}
+                alt={partner.alt}
+                className="w-full h-24 object-contain mx-auto"
               />
-            </div>
-            <div className="bg-white p-4 rounded-md shadow-md">
-              <label htmlFor="email" className="block text-lg font-medium text-gray-700">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-                placeholder="Your email"
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Segunda linha - 4 partners */}
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-6">
+          {[ 
+            { 
+              alt: 'Co-Funded by the EU', 
+              src: 'https://epi-care.eu/wp-content/uploads/2020/12/Co-Funded_by_the_EU_logo-1024x280.png' 
+            },
+            { 
+              alt: 'Afeji', 
+              src: 'https://sportymentor.eu/wp-content/uploads/2023/02/logo-Afeji-FR.png' 
+            },
+            { 
+              alt: 'Aproximar Portugal', 
+              src: 'https://sportymentor.eu/wp-content/uploads/2023/02/LOGO-Aproximar-portugal.png' 
+            },
+            { 
+              alt: 'Universidade da Beira Interior', 
+              src: 'https://sportymentor.eu/wp-content/uploads/2023/02/UNIVERSIDADE-DA-BEIRA-INTERIOR-portugal.png' 
+            }
+          ].map((partner, index) => (
+            <motion.div
+              key={index}
+              className="p-4 bg-white rounded-md shadow-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.5 }}
+            >
+              <img
+                src={partner.src}
+                alt={partner.alt}
+                className="w-full h-24 object-contain mx-auto"
               />
-            </div>
-          </div>
-
-          <div className="bg-white p-4 rounded-md shadow-md">
-            <label htmlFor="message" className="block text-lg font-medium text-gray-700">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              rows="6"
-              className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-              placeholder="Your message"
-              style={{ backgroundColor: '#ffffff' }}
-            />
-          </div>
-
-          <motion.button
-            type="submit"
-            className="w-full bg-blue-600 text-white px-6 py-3 rounded-full text-xl font-semibold hover:bg-blue-700 transition"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.5 }}
-          >
-            Send Message
-          </motion.button>
-        </motion.form>
-
-        {/* Success Message */}
-        {formSubmitted && (
-          <motion.div
-            className="mt-6 p-4 bg-green-500 text-white rounded-md"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <p>Message sent successfully!</p>
-          </motion.div>
-        )}
+            </motion.div>
+          ))}
+        </div>
       </motion.section>
 
+      {/* Contact Form Section */}
+      <motion.section
+        id="contact"
+        className="py-16 bg-gradient-to-br from-blue-500 to-purple-600 text-white"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1 }}
+      >
+        <div className="max-w-6xl mx-auto px-4">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
+            <p className="text-xl text-blue-100">Get in touch with us for any questions or collaborations</p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Contact Info */}
+            <motion.div
+              className="space-y-6"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="flex items-center space-x-4">
+                <div className="bg-white p-3 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-xl">Email</h3>
+                  <p className="text-blue-100">contact@2gfinnovation.com</p>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="bg-white p-3 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-xl">Location</h3>
+                  <p className="text-blue-100">Porto, Portugal</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-xl">
+                <div className="mb-6">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition duration-200 outline-none"
+                  />
+                </div>
+                <div className="mb-6">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition duration-200 outline-none"
+                  />
+                </div>
+                <div className="mb-6">
+                  <textarea
+                    name="message"
+                    placeholder="Your Message"
+                    required
+                    rows="4"
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition duration-200 outline-none resize-none"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition duration-300 transform hover:scale-[1.02]"
+                >
+                  Send Message
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        </div>
+      </motion.section>
     </div>
   );
 }
