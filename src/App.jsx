@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+import { motion } from "framer-motion";
+
+function App() {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      <h1 className="text-3xl font-bold underline text-center">Welcome to SportyMentor!</h1>
+    </motion.div>
+=======
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
@@ -372,6 +385,7 @@ function App() {
         </div>
       </motion.section>
     </div>
+>>>>>>> c87ab0b6be0672a40a9c47539e77540645a906ad
   );
 }
 
