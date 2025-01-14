@@ -1,8 +1,7 @@
-// tailwind.config.js
 module.exports = {
   content: [
-    "./index.html",   // if you have an HTML file
-    "./src/**/*.{js,jsx,ts,tsx}",  // if you're using React (JSX/TSX) files
+    './src/**/*.{html,js,jsx,ts,tsx,vue}', // Include all source files that use Tailwind
+    './public/index.html', // Also include your HTML files if needed
   ],
   theme: {
     extend: {},
