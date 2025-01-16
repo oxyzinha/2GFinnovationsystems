@@ -1,31 +1,50 @@
 const nodemailer = require('nodemailer');
 
-// Create the transporter using the Gmail SMTP service
-const transporter = nodemailer.createTransport({
-    service: 'gmail',  // Use Gmail service
+// Create test account
+const createTestAccount = async () => {
+  const testAccount = await nodemailer.createTestAccount();
+  
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    secure: false,
     auth: {
-        user: process.env.EMAIL_USER, // Email address from the .env file
-        pass: process.env.EMAIL_PASS  // App password or your email password
+      user: testAccount.user,
+      pass: testAccount.pass
     }
-});
+  });
 
-// Function to send the email
-const sendEmail = async (to, subject, text, html) => {
+  return transporter;
+};
+
+const sendEmail = async ({ name, email, message }) => {
+  try {
+    const transporter = await createTestAccount();
+    
     const mailOptions = {
-        from: process.env.EMAIL_USER, // Sender's email address
-        to,  // Receiver's email address
-        subject,  // Subject of the email
-        text,  // Text body
-        html  // HTML body
+      from: '"Contact Form" <test@example.com>',
+      to: 'recipient@example.com',
+      subject: `New Contact Form Message from ${name}`,
+      text: `
+        Name: ${name}
+        Email: ${email}
+        Message: ${message}
+      `,
+      html: `
+        <h3>New Contact Form Submission</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong> ${message}</p>
+      `
     };
 
-    try {
-        const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent: ' + info.response);
-    } catch (error) {
-        console.error('Error sending email:', error);
-        throw new Error('Failed to send email');
-    }
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    return info;
+  } catch (error) {
+    console.error('Error in sendEmail:', error);
+    throw error;
+  }
 };
 
 module.exports = sendEmail;

@@ -1,39 +1,10 @@
-import React from 'react'; // Add this line at the top of App.jsx
+import React from 'react';
 import { useState } from 'react';
-import emailjs from 'emailjs-com';
 import { motion } from 'framer-motion';
 
 function App() {
   // State to control success message
   const [formSubmitted, setFormSubmitted] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: e.target.name.value,
-          email: e.target.email.value,
-          message: e.target.message.value,
-        }),
-      });
-
-      if (response.ok) {
-        setFormSubmitted(true);
-        e.target.reset();
-      } else {
-        throw new Error('Failed to send message');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Failed to send message. Please try again.');
-    }
-  };
 
   return (
     <div className="bg-white text-gray-900">
@@ -213,7 +184,29 @@ function App() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
-          onSubmit={handleSubmit}
+          action="https://formspree.io/f/mdkkjlzo"
+          method="POST"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            fetch(e.target.action, {
+              method: 'POST',
+              body: formData,
+            })
+            .then(response => {
+              if (response.ok) {
+                setFormSubmitted(true);
+                e.target.reset();
+                setTimeout(() => {
+                  setFormSubmitted(false);
+                }, 5000);
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('Failed to send message. Please try again.');
+            });
+          }}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="bg-white p-4 rounded-md shadow-md">
@@ -224,6 +217,7 @@ function App() {
                 name="name"
                 className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                 placeholder="Your name"
+                required
               />
             </div>
             <div className="bg-white p-4 rounded-md shadow-md">
@@ -234,6 +228,7 @@ function App() {
                 name="email"
                 className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                 placeholder="Your email"
+                required
               />
             </div>
           </div>
@@ -247,8 +242,23 @@ function App() {
               className="w-full mt-2 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
               placeholder="Your message"
               style={{ backgroundColor: '#ffffff' }}
+              required
             />
           </div>
+
+          {/* Success Message */}
+          {formSubmitted && (
+            <motion.div
+              className="mt-6 p-4 bg-green-500 text-white rounded-md"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-center font-semibold">
+                Thank you! Your message has been sent successfully. We'll get back to you soon.
+              </p>
+            </motion.div>
+          )}
 
           <motion.button
             type="submit"
@@ -260,18 +270,6 @@ function App() {
             Send Message
           </motion.button>
         </motion.form>
-
-        {/* Success Message */}
-        {formSubmitted && (
-          <motion.div
-            className="mt-6 p-4 bg-green-500 text-white rounded-md"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <p>Message sent successfully!</p>
-          </motion.div>
-        )}
       </motion.section>
 
     </div>
