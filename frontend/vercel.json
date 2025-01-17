@@ -1,4 +1,3 @@
-// Exemplo de vercel.json no frontend
 {
     "builds": [
       {
