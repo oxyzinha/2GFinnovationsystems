@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -13,6 +12,8 @@ function App() {
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+
 
 function App() {
   const phrases = [
