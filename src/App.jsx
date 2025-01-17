@@ -1,15 +1,14 @@
-
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-
-
 function App() {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+
   const phrases = [
     "\"There is a driving force more <span class='text-blue-500 font-bold'>powerful</span> than steam, electricity and atomic energy: the <span class='text-blue-500 font-bold'>will</span>.\" - Albert Einstein"
   ];
-
-  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -19,12 +18,56 @@ function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // State to control mobile menu toggle
-  const [menuOpen, setMenuOpen] = useState(false);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // A lógica do backend será implementada pela sua colega
+    const formData = new FormData(e.target);
+    fetch(e.target.action, {
+      method: 'POST',
+      body: formData,
+    })
+    .then(response => {
+      if (response.ok) {
+        setFormSubmitted(true);
+        e.target.reset();
+        setTimeout(() => {
+          setFormSubmitted(false);
+        }, 5000);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Failed to send message. Please try again.');
+    });
+  };
+
+  const sendEmail = async (e) => {
+    e.preventDefault();
+    console.log("Form submitted");
+
+    try {
+      const response = await fetch('https://formspree.io/f/mdkkjlzo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: e.target.name.value,
+          email: e.target.email.value,
+          message: e.target.message.value
+        })
+      });
+
+      if (response.ok) {
+        setFormSubmitted(true);
+        e.target.reset();
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to send message. Please try again.");
+    }
   };
 
   return (
@@ -375,19 +418,25 @@ function App() {
                     <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                     </svg>
-                    Green data spaces
+                    Smart lighting
                   </li>
                   <li className="flex items-center">
                     <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                     </svg>
-                    Precision farming
+                    Smart parking
                   </li>
                   <li className="flex items-center">
                     <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                     </svg>
-                    Consulting
+                    Smart waste management
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Smart mobility
                   </li>
                 </ul>
               </div>
@@ -399,7 +448,7 @@ function App() {
       {/* Success Cases Section */}
       <motion.section
         id="success-cases"
-        className="py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white"
+        className="py-20 bg-gradient-to-br from-blue-900 to-purple-900 text-white"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -589,7 +638,7 @@ function App() {
         </div>
       </motion.section>
 
-      {/* Contact Form Section */}
+      {/* Contact Section */}
       <motion.section
         id="contact"
         className="py-16 bg-gradient-to-br from-blue-500 to-purple-600 text-white"
@@ -650,7 +699,7 @@ function App() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-xl">
+              <form onSubmit={sendEmail} className="bg-white p-8 rounded-lg shadow-xl">
                 <div className="mb-6">
                   <input
                     type="text"
@@ -685,6 +734,19 @@ function App() {
                   Send Message
                 </button>
               </form>
+
+              {formSubmitted && (
+                <motion.div
+                  className="mt-6 p-4 bg-green-500 text-white rounded-md"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <p className="text-center font-semibold">
+                    Thank you! Your message has been sent successfully. We'll get back to you soon.
+                  </p>
+                </motion.div>
+              )}
             </motion.div>
           </div>
         </div>

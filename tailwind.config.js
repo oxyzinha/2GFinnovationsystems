@@ -6,6 +6,8 @@ module.exports = {
     "./src/**/*.{html,js,jsx,ts,tsx}",
     "@shadcn/ui/dist/**/*.{js,jsx,ts,tsx}",
 
+    './src/**/*.{html,js,jsx,ts,tsx,vue}', // Include all source files that use Tailwind
+    './public/index.html', // Also include your HTML files if needed
   ],
   theme: {
     extend: {},
