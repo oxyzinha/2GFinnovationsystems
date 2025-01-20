@@ -18,28 +18,6 @@ function App() {
     return () => clearInterval(timer);
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    fetch(e.target.action, {
-      method: 'POST',
-      body: formData,
-    })
-    .then(response => {
-      if (response.ok) {
-        setFormSubmitted(true);
-        e.target.reset();
-        setTimeout(() => {
-          setFormSubmitted(false);
-        }, 5000);
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Failed to send message. Please try again.');
-    });
-  };
-
   const sendEmail = async (e) => {
     e.preventDefault();
     console.log("Form submitted");
@@ -59,8 +37,14 @@ function App() {
       });
 
       if (response.ok) {
+        console.log("Email sent successfully!");
         setFormSubmitted(true);
         e.target.reset();
+        
+        // Limpa a mensagem de sucesso após 5 segundos
+        setTimeout(() => {
+          setFormSubmitted(false);
+        }, 5000);
       } else {
         throw new Error('Failed to send message');
       }
