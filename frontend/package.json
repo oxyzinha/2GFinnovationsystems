@@ -2,6 +2,7 @@
   "name": "sportymentor",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -35,6 +36,6 @@
     "vite": "^6.0.5"
   },
   "engines": {
-    "node": ">=16"
+    "node": "18.x"
   }
 }
