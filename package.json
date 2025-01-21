@@ -398,5 +398,7 @@
   "bugs": {
     "url": "https://github.com/oxyzinha/Sportymentor/issues"
   },
-  "homepage": "https://github.com/oxyzinha/Sportymentor#readme"
+  "homepage": "https://github.com/oxyzinha/Sportymentor#readme",
+  "node": "16.x",
+  "vite": "^6.0.7"
 }
