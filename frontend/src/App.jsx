@@ -690,7 +690,7 @@ function App() {
                     name="name"
                     placeholder="Your Name"
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition duration-200 outline-none"
+                    className="w-full px-4 py-2 border rounded-lg bg-white text-gray-900"
                   />
                 </div>
                 <div className="mb-6">
@@ -699,7 +699,7 @@ function App() {
                     name="email"
                     placeholder="Your Email"
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition duration-200 outline-none"
+                    className="w-full px-4 py-2 border rounded-lg bg-white text-gray-900"
                   />
                 </div>
                 <div className="mb-6">
@@ -708,7 +708,7 @@ function App() {
                     placeholder="Your Message"
                     required
                     rows="4"
-                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition duration-200 outline-none resize-none"
+                    className="w-full px-4 py-2 border rounded-lg bg-white text-gray-900"
                   ></textarea>
                 </div>
                 <button
