@@ -660,20 +660,22 @@ function App() {
       {/* Our Partners Section */}
       <motion.section
         id="partners"
-        className="py-20 bg-gray-50"
+        className="py-20 bg-gray-50 relative overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4 relative z-10">
           <motion.h2
             className="text-4xl md:text-5xl font-bold mb-12 text-center text-gray-800"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
             Our Partners
           </motion.h2>
+
           {/* Primeira linha - 3 partners */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
             {[ 
@@ -692,15 +694,18 @@ function App() {
             ].map((partner, index) => (
               <motion.div
                 key={index}
-                className="p-4 bg-white rounded-md shadow-sm"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.5 }}
+                className="p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                whileHover={{ y: -5 }}
               >
-                <img
+                <motion.img
                   src={partner.src}
                   alt={partner.alt}
-                  className="w-full h-24 object-contain mx-auto"
+                  className="w-full h-24 object-contain mx-auto filter grayscale hover:grayscale-0 transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
                 />
               </motion.div>
             ))}
@@ -728,15 +733,18 @@ function App() {
             ].map((partner, index) => (
               <motion.div
                 key={index}
-                className="p-4 bg-white rounded-md shadow-sm"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.5 }}
+                className="p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                whileHover={{ y: -5 }}
               >
-                <img
+                <motion.img
                   src={partner.src}
                   alt={partner.alt}
-                  className="w-full h-24 object-contain mx-auto"
+                  className="w-full h-24 object-contain mx-auto filter grayscale hover:grayscale-0 transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
                 />
               </motion.div>
             ))}
@@ -747,47 +755,105 @@ function App() {
       {/* Contact Section */}
       <motion.section
         id="contact"
-        className="py-16 bg-gradient-to-br from-blue-500 to-purple-600 text-white"
+        className="py-16 relative overflow-hidden text-white"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
+        transition={{ duration: 1 }}
       >
-        <div className="max-w-6xl mx-auto px-4">
+        {/* Background com padrão geométrico moderno */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-700">
+          {/* Padrão de hexágonos */}
+          <div 
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15L30 0z' fill-rule='evenodd' stroke='%23ffffff' fill='none'/%3E%3C/svg%3E")`,
+              backgroundSize: '60px 60px'
+            }}
+          />
+
+          {/* Círculos flutuantes */}
+          <motion.div
+            className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white/10 blur-2xl"
+            animate={{
+              y: [0, 50, 0],
+              opacity: [0.1, 0.15, 0.1],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-white/10 blur-2xl"
+            animate={{
+              y: [50, 0, 50],
+              opacity: [0.1, 0.15, 0.1],
+            }}
+            transition={{
+              duration: 7,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </div>
+
+        <div className="max-w-6xl mx-auto px-4 relative z-10">
           <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
+            <motion.div 
+              className="inline-block mb-4"
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+            >
+              <div className="w-20 h-1 bg-white mx-auto mb-4" />
+              <h2 className="text-4xl font-bold text-white">Contact Us</h2>
+              <div className="w-20 h-1 bg-white mx-auto mt-4" />
+            </motion.div>
             <p className="text-xl text-blue-100">Get in touch with us for any questions or collaborations</p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Contact Info */}
             <motion.div
-              className="space-y-6"
+              className="space-y-8"
               initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="flex items-center space-x-4">
-                <div className="bg-white p-3 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <motion.div 
+                className="flex items-center space-x-4"
+                whileHover={{ x: 10 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="bg-white/10 p-4 rounded-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <div>
                   <h3 className="font-semibold text-xl">Email</h3>
-                  <a href="mailto:hello@2gfinnovationsystems.pt" className="text-blue-100 hover:text-blue-300 transition-colors">
+                  <a href="mailto:hello@2gfinnovationsystems.pt" className="text-blue-100 hover:text-white transition-colors">
                     hello@2gfinnovationsystems.pt
                   </a>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex items-center space-x-4">
-                <div className="bg-white p-3 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <motion.div 
+                className="flex items-center space-x-4"
+                whileHover={{ x: 10 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="bg-white/10 p-4 rounded-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
@@ -796,46 +862,71 @@ function App() {
                   <h3 className="font-semibold text-xl">Location</h3>
                   <p className="text-blue-100">R. António Augusto de Aguiar, 6200-053 Covilhã</p>
                 </div>
-              </div>
+              </motion.div>
+
+              <motion.div 
+                className="flex items-center space-x-4"
+                whileHover={{ x: 10 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="bg-white/10 p-4 rounded-lg">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-xl">LinkedIn</h3>
+                  <a href="https://www.linkedin.com/company/2gf-innovation-systems/" 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     className="text-blue-100 hover:text-white transition-colors">
+                    Follow us
+                  </a>
+                </div>
+              </motion.div>
             </motion.div>
 
             {/* Form */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <form onSubmit={sendEmail} className="bg-white p-8 rounded-lg shadow-xl">
+              <form onSubmit={sendEmail} className="bg-white rounded-lg shadow-xl p-8">
                 <div className="mb-6">
-                  <input
+                  <motion.input
                     type="text"
                     name="name"
                     placeholder="Your Name"
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 focus:border-gray-500 focus:bg-white focus:ring-2 focus:ring-gray-400 outline-none transition duration-200"
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition duration-200"
+                    whileFocus={{ scale: 1.01 }}
                   />
                 </div>
                 <div className="mb-6">
-                  <input
+                  <motion.input
                     type="email"
                     name="email"
                     placeholder="Your Email"
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 focus:border-gray-500 focus:bg-white focus:ring-2 focus:ring-gray-400 outline-none transition duration-200"
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition duration-200"
+                    whileFocus={{ scale: 1.01 }}
                   />
                 </div>
                 <div className="mb-6">
-                  <textarea
+                  <motion.textarea
                     name="message"
                     placeholder="Your Message"
                     required
                     rows="6"
-                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 focus:border-gray-500 focus:bg-white focus:ring-2 focus:ring-gray-400 outline-none transition duration-200 resize-none"
-                  ></textarea>
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition duration-200 resize-none"
+                    whileFocus={{ scale: 1.01 }}
+                  ></motion.textarea>
                 </div>
                 <motion.button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg font-semibold text-lg shadow-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg font-semibold text-lg shadow-lg"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
