@@ -113,66 +113,61 @@ function App() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="block lg:hidden text-gray-800"
+            className="block lg:hidden text-gray-800 p-2 rounded-lg hover:bg-gray-100 transition-colors z-50"
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {menuOpen ? 'X' : '☰'}
+            {menuOpen ? (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
           </button>
 
           {/* Navigation Menu */}
           <motion.nav
             className={`
               lg:flex lg:space-x-4
-              ${menuOpen ? 'block fixed inset-0 bg-white/95 backdrop-blur-sm pt-20' : 'hidden'}
-              lg:relative lg:bg-transparent lg:pt-0 lg:block
+              ${menuOpen 
+                ? 'block fixed inset-0 top-[88px] bg-white/95 backdrop-blur-md shadow-xl z-50' 
+                : 'hidden'
+              }
+              lg:relative lg:bg-transparent lg:shadow-none
             `}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
+            transition={{ duration: 0.3 }}
           >
-            <div className="flex flex-col lg:flex-row lg:space-x-2 space-y-4 lg:space-y-0 px-4 lg:px-0">
-              <a 
-                href="#home" 
-                className="px-3 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 text-sm uppercase tracking-wider font-semibold" 
-                onClick={() => setMenuOpen(false)}
-              >
-                Home
-              </a>
-              <a 
-                href="#about" 
-                className="px-3 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 text-sm uppercase tracking-wider font-semibold" 
-                onClick={() => setMenuOpen(false)}
-              >
-                About
-              </a>
-              <a 
-                href="#services" 
-                className="px-3 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 text-sm uppercase tracking-wider font-semibold" 
-                onClick={() => setMenuOpen(false)}
-              >
-                Services
-              </a>
-              <a 
-                href="#success-cases" 
-                className="px-3 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 text-sm uppercase tracking-wider font-semibold" 
-                onClick={() => setMenuOpen(false)}
-              >
-                Success Cases
-              </a>
-              <a 
-                href="#partners" 
-                className="px-3 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 text-sm uppercase tracking-wider font-semibold" 
-                onClick={() => setMenuOpen(false)}
-              >
-                Partners
-              </a>
-              <a 
-                href="#contact" 
-                className="px-3 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:from-blue-600 hover:to-blue-800 transition-all duration-300 text-sm uppercase tracking-wider font-semibold" 
-                onClick={() => setMenuOpen(false)}
-              >
-                Contact
-              </a>
+            <div className="flex flex-col lg:flex-row lg:space-x-2 space-y-4 lg:space-y-0">
+              <div className="px-6 py-4 bg-white lg:bg-transparent lg:p-0">
+                {[
+                  { href: '#home', label: 'Home' },
+                  { href: '#about', label: 'About' },
+                  { href: '#services', label: 'Services' },
+                  { href: '#success-cases', label: 'Success Cases' },
+                  { href: '#partners', label: 'Partners' }
+                ].map((item) => (
+                  <a 
+                    key={item.href}
+                    href={item.href} 
+                    className="block px-4 py-3 mb-2 rounded-lg text-gray-900 font-semibold hover:bg-gray-100 transition-all duration-300 text-base uppercase tracking-wide lg:inline-block lg:mb-0 lg:text-gray-700 lg:hover:bg-blue-50 lg:hover:text-blue-600 lg:text-sm lg:px-3 lg:py-2"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+                
+                <a 
+                  href="#contact" 
+                  className="block px-4 py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-all duration-300 text-base uppercase tracking-wide text-center shadow-md lg:inline-block lg:text-sm lg:px-3 lg:py-2 lg:bg-gradient-to-r lg:from-blue-500 lg:to-blue-700 lg:hover:from-blue-600 lg:hover:to-blue-800"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Contact
+                </a>
+              </div>
             </div>
           </motion.nav>
         </div>
