@@ -251,42 +251,17 @@ function App() {
         
         {/* Content */}
           <div className="relative z-20 max-w-4xl mx-auto">
-          <motion.h1
-            className="text-5xl md:text-6xl font-extrabold mb-6 leading-tight"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
-            Innovation That{' '}
-              <span className="text-blue-300 glow-text">
-              Transforms
-            </span>
-            <br/>
-            Your Business
-          </motion.h1>
-          
-          <div className="overflow-hidden">
-            <motion.p
-              key={currentPhraseIndex}
-              animate={{ 
-                y: [0, -2, 0, 2, 0],
-                scale: [1, 1.01, 1, 1.01, 1],
-                filter: [
-                  'drop-shadow(0 0 0px rgba(59, 130, 246, 0))',
-                  'drop-shadow(0 0 2px rgba(59, 130, 246, 0.3))',
-                  'drop-shadow(0 0 0px rgba(59, 130, 246, 0))',
-                  'drop-shadow(0 0 2px rgba(59, 130, 246, 0.3))',
-                  'drop-shadow(0 0 0px rgba(59, 130, 246, 0))'
-                ]
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="text-xl md:text-2xl max-w-2xl mx-auto mb-8 font-medium text-gray-100 leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: phrases[currentPhraseIndex] }}
-            />
+          <div className="text-center relative z-20">
+            <h1 className="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
+              Innovation That
+              <br />
+              <span className="text-blue-400">Transforms</span>
+              <br />
+              Your Business
+            </h1>
+            <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto font-medium text-gray-100 leading-relaxed">
+              "There is a driving force more <span className="text-blue-500 font-bold">powerful</span> than steam, electricity and atomic energy: the <span className="text-blue-500 font-bold">will</span>." - Albert Einstein
+            </p>
           </div>
           
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8">
@@ -332,7 +307,7 @@ function App() {
         variants={fadeInVariant}
       >
         <div className="max-w-6xl mx-auto px-4 relative z-10">
-          <motion.div
+                <motion.div
             className="text-center mb-16"
             variants={{
               hidden: { opacity: 0, y: 20 },
@@ -344,7 +319,7 @@ function App() {
             </h2>
             
             {/* Animated underline */}
-            <motion.div
+              <motion.div
               className="h-1 w-24 bg-blue-600 mx-auto mb-8"
               initial={{ width: 0 }}
               whileInView={{ width: 96 }}
@@ -375,9 +350,17 @@ function App() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Our <span className="text-blue-600">Services</span>
             </h2>
+            
+            {/* Animated underline */}
+            <motion.div
+              className="h-1 w-24 bg-blue-600 mx-auto mb-8"
+              initial={{ width: 0 }}
+              whileInView={{ width: 96 }}
+              transition={{ duration: 1, delay: 0.5 }}
+            />
           </motion.div>
 
           {/* Services Grid */}
@@ -805,7 +788,7 @@ function App() {
                      className="text-gray-300 hover:text-white transition-colors">
                     2GF Innovation Systems
                   </a>
-                </div>
+              </div>
               </motion.div>
             </motion.div>
 
@@ -816,15 +799,14 @@ function App() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <form onSubmit={sendEmail} className="card-hover bg-white/5 backdrop-blur-lg rounded-lg p-8">
+              <form onSubmit={sendEmail} className="bg-white rounded-lg p-8">
                 <div className="mb-6">
                   <motion.input
                     type="text"
                     name="name"
                     placeholder="Your Name"
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition duration-200"
-                    whileFocus={{ scale: 1.01 }}
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition duration-200"
                   />
                 </div>
                 <div className="mb-6">
@@ -833,8 +815,7 @@ function App() {
                     name="email"
                     placeholder="Your Email"
                     required
-                    className="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition duration-200"
-                    whileFocus={{ scale: 1.01 }}
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition duration-200"
                   />
                 </div>
                 <div className="mb-6">
@@ -843,15 +824,12 @@ function App() {
                     placeholder="Your Message"
                     required
                     rows="6"
-                    className="w-full px-4 py-3 rounded-lg bg-white border border-gray-200 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition duration-200 resize-none"
-                    whileFocus={{ scale: 1.01 }}
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition duration-200 resize-none"
                   ></motion.textarea>
                 </div>
                 <motion.button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg font-semibold text-lg shadow-lg"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg font-semibold text-lg"
                 >
                   Send Message
                 </motion.button>
@@ -992,91 +970,8 @@ function App() {
         
         /* Card hover effect */
         .card-hover {
-          transition: all 0.3s ease;
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(10px);
-        }
-        
-        .card-hover:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-          background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Gradient border animation */
-        .gradient-border {
-          position: relative;
-          background: linear-gradient(60deg, #4361ee, #7209b7, #4361ee);
-          background-size: 200% 200%;
-          animation: gradient-shift 5s ease infinite;
-        }
-
-        @keyframes gradient-shift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-
-        /* Floating animation */
-        .floating {
-          animation: floating 3s ease-in-out infinite;
-        }
-
-        @keyframes floating {
-          0% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-          100% { transform: translateY(0px); }
-        }
-
-        /* Shine line effect */
-        .shine-line {
-          position: relative;
-          overflow: hidden;
-        }
-
-        .shine-line::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 2px;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-          animation: shine-line 3s infinite;
-        }
-
-        @keyframes shine-line {
-          0% { left: -100%; }
-          100% { left: 100%; }
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-20px); }
-        }
-
-        .float-animation {
-          animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes pulse-glow {
-          0%, 100% { 
-            box-shadow: 0 0 20px rgba(67, 97, 238, 0.3);
-          }
-          50% { 
-            box-shadow: 0 0 40px rgba(67, 97, 238, 0.6);
-          }
-        }
-
-        .pulse-glow {
-          animation: pulse-glow 3s ease-in-out infinite;
-        }
-
-        .glass-effect {
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+          background: white;
+          border-radius: 0.5rem;
         }
       `}</style>
     </div>
