@@ -44,25 +44,29 @@ function App() {
     console.log("Form submitted");
 
     try {
-      const response = await fetch('https://formspree.io/f/mdkkjlzo', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          access_key: '45aef67d-9dfd-42f2-9429-7733bc3d8020',
           name: e.target.name.value,
           email: e.target.email.value,
-          message: e.target.message.value
+          message: e.target.message.value,
+          subject: `New Contact Form Submission from ${e.target.name.value} - 2GF Innovation Systems`,
+          from_name: '2GF Innovation Systems Contact Form',
+          to_email: 'hello@2gfinnovationsystems.pt'
         })
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (data.success) {
         console.log("Email sent successfully!");
         setFormSubmitted(true);
         e.target.reset();
         
-        // Limpa a mensagem de sucesso após 5 segundos
         setTimeout(() => {
           setFormSubmitted(false);
         }, 5000);
@@ -219,13 +223,13 @@ function App() {
               <motion.div
                 key={i}
                 className="absolute w-1 h-1 bg-white rounded-full"
-                animate={{
+              animate={{ 
                   y: [0, -30, 0],
                   opacity: [0, 1, 0],
-                }}
-                transition={{
+              }}
+              transition={{
                   duration: Math.random() * 2 + 1,
-                  repeat: Infinity,
+                repeat: Infinity,
                   delay: Math.random() * 2,
                 }}
                 style={{
@@ -235,16 +239,16 @@ function App() {
               />
             ))}
           </div>
-
+          
           {/* Add this right before your hero content div */}
           <motion.div 
             className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/50 z-[6]"
-            animate={{
+                  animate={{
               opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{
+                  }}
+                  transition={{
               duration: 5,
-              repeat: Infinity,
+                    repeat: Infinity,
               repeatType: "reverse"
             }}
         />
@@ -266,15 +270,16 @@ function App() {
           
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8">
           <motion.button
-                className="bg-white text-blue-600 px-8 py-4 rounded-full text-xl font-semibold transition shadow-xl relative overflow-hidden group"
+                className="bg-white text-blue-600 px-8 py-4 rounded-full text-xl font-semibold transition-all duration-300 shadow-xl relative overflow-hidden group hover:text-white"
                 variants={buttonVariants}
                 whileHover="hover"
                 whileTap={{ scale: 0.95 }}
+                onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
               >
                 <span className="relative z-10">Learn More</span>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  animate={{
+              <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                animate={{
                     background: [
                       "linear-gradient(45deg, #4361ee 0%, #7209b7 100%)",
                       "linear-gradient(45deg, #7209b7 0%, #4361ee 100%)",
@@ -307,7 +312,7 @@ function App() {
         variants={fadeInVariant}
       >
         <div className="max-w-6xl mx-auto px-4 relative z-10">
-                <motion.div
+              <motion.div
             className="text-center mb-16"
             variants={{
               hidden: { opacity: 0, y: 20 },
@@ -838,12 +843,12 @@ function App() {
               <AnimatePresence>
               {formSubmitted && (
                 <motion.div
-                    initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="mt-4 p-4 bg-green-500 text-white rounded-lg text-center"
+                  exit={{ opacity: 0 }}
+                  className="mt-4 p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-100 text-center"
                 >
-                    Message sent successfully!
+                  Message sent successfully! We'll get back to you soon.
                 </motion.div>
               )}
               </AnimatePresence>
